@@ -4,6 +4,8 @@
     "slug": "eventos-comunitarios-ca140174",
     "version": "1.0.0",
     "orientation": "portrait",
+     "platforms": ["ios", "android", "web"],
+    "entryPoint": "./App.js",
     "icon": "./assets/images/icon.png",
     "scheme": "eventoscomunitariosca140174",
     "userInterfaceStyle": "automatic",
