@@ -20,7 +20,7 @@ export default function LoginScreen({ navigation }) {
         type: 'success',
         text1: 'Inicio de sesión exitoso',
       });
-      navigation.navigate("Home");
+     navigation.navigate("Main");
     } catch (error) {
       Toast.show({
         type: 'error',
