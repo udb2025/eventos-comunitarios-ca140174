@@ -1,9 +1,10 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Keyboard, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import Toast from 'react-native-toast-message';
 import { auth } from "../services/firebaseConfig";
 import styles from '../theme/styles'; // importa el archivo
+
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
@@ -27,6 +28,7 @@ export default function LoginScreen({ navigation }) {
   };
 
   return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={styles.container}>
       <Text style={styles.title}>Iniciar Sesión</Text>
 
@@ -54,6 +56,7 @@ export default function LoginScreen({ navigation }) {
         <Text style={styles.link}>Crear una cuenta</Text>
       </TouchableOpacity>
     </View>
+    </TouchableWithoutFeedback>
   );
 }
 

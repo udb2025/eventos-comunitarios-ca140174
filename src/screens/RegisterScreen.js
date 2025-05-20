@@ -5,6 +5,7 @@ import Toast from 'react-native-toast-message';
 import { auth } from "../services/firebaseConfig";
 import styles from '../theme/styles'; // importa el archivo
 
+
 export default function RegisterScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -36,6 +37,7 @@ export default function RegisterScreen({ navigation }) {
   };
 
   return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={styles.container}>
       <Text style={styles.title}>Crear Cuenta</Text>
       <TextInput placeholder="Correo electrónico" value={email} onChangeText={setEmail} placeholderTextColor="#999" style={styles.input} />
@@ -48,6 +50,7 @@ export default function RegisterScreen({ navigation }) {
         <Text style={styles.link}>¿Ya tienes una cuenta? Inicia sesión</Text>
       </TouchableOpacity>
     </View>
+    </TouchableWithoutFeedback>
   );
 }
 
