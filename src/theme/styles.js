@@ -41,4 +41,22 @@ export default StyleSheet.create({
     textAlign: "center",
     marginTop: 10,
   },
+  socialButton: {
+  flexDirection: "row",
+  alignItems: "center",
+  justifyContent: "center",
+  borderWidth: 1,
+  borderColor: "#ccc",
+  padding: 14,
+  borderRadius: 8,
+  marginBottom: 12,
+  backgroundColor: "#fff",
+},
+
+socialButtonText: {
+  color: "#000",
+  fontSize: 16,
+  marginLeft: 8,
+},
+
 });
