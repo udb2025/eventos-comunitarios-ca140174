@@ -1,10 +1,10 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
-import { Keyboard, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import Toast from 'react-native-toast-message';
+import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
 import { auth } from "../services/firebaseConfig";
 import styles from '../theme/styles'; // importa el archivo
-
 
 export default function RegisterScreen({ navigation }) {
   const [email, setEmail] = useState("");
@@ -37,7 +37,7 @@ export default function RegisterScreen({ navigation }) {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <KeyboardAvoidingWrapper  style={styles.container}>
     <View style={styles.container}>
       <Text style={styles.title}>Crear Cuenta</Text>
       <TextInput placeholder="Correo electrónico" value={email} onChangeText={setEmail} placeholderTextColor="#999" style={styles.input} />
@@ -50,7 +50,7 @@ export default function RegisterScreen({ navigation }) {
         <Text style={styles.link}>¿Ya tienes una cuenta? Inicia sesión</Text>
       </TouchableOpacity>
     </View>
-    </TouchableWithoutFeedback>
+    </KeyboardAvoidingWrapper >
   );
 }
 
