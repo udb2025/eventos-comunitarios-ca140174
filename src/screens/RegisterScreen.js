@@ -1,8 +1,9 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import Toast from 'react-native-toast-message';
 import { auth } from "../services/firebaseConfig";
+import styles from '../theme/styles'; // importa el archivo
 
 export default function RegisterScreen({ navigation }) {
   const [email, setEmail] = useState("");
@@ -50,11 +51,4 @@ export default function RegisterScreen({ navigation }) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: "center", padding: 20, backgroundColor: "#fff" },
-  title: { fontSize: 28, color: "#000", marginBottom: 20, textAlign: "center" },
-  input: { borderWidth: 1, borderColor: "#ccc", padding: 12, borderRadius: 8, marginBottom: 16, color: "#000" },
-  button: { backgroundColor: "#000", padding: 14, borderRadius: 8, marginBottom: 10 },
-  buttonText: { color: "#fff", textAlign: "center", fontWeight: "bold" },
-  link: { color: "#666", textAlign: "center", marginTop: 10 }
-});
+
