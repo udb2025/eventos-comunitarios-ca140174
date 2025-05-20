@@ -1,10 +1,10 @@
 {
   "expo": {
+    "entryPoint": "index.js",
     "name": "Eventos Comunitarios",
     "slug": "eventos-comunitarios",
     "version": "1.0.0",
     "orientation": "portrait",
-    "platforms": ["ios", "android", "web"],
-    "entryPoint": "index.js"
+    "platforms": ["ios", "android", "web"]
   }
 }

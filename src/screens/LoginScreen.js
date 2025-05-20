@@ -1,50 +1,99 @@
-// src/screens/LoginScreen.js
-import React from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import React, { useState } from "react";
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import Toast from 'react-native-toast-message';
+import { auth } from "../services/firebaseConfig";
 
 export default function LoginScreen({ navigation }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async () => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      Toast.show({
+        type: 'success',
+        text1: 'Inicio de sesión exitoso',
+      });
+      navigation.navigate("Home");
+    } catch (error) {
+      Toast.show({
+        type: 'error',
+        text1: 'Error al iniciar sesión',
+        text2: error.message,
+      });
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Iniciar Sesión</Text>
 
-      <TextInput placeholder="Correo electrónico" placeholderTextColor="#999" style={styles.input} />
-      <TextInput placeholder="Contraseña" placeholderTextColor="#999" secureTextEntry style={styles.input} />
+      <TextInput
+        placeholder="Correo electrónico"
+        value={email}
+        onChangeText={setEmail}
+        placeholderTextColor="#888"
+        style={styles.input}
+      />
+      <TextInput
+        placeholder="Contraseña"
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry
+        placeholderTextColor="#888"
+        style={styles.input}
+      />
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Entrar</Text>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => navigation.navigate("Register")}>
         <Text style={styles.link}>Crear una cuenta</Text>
       </TouchableOpacity>
-
-      <View style={styles.divider} />
-
-      <Text style={styles.socialText}>O inicia sesión con</Text>
-
-      <View style={styles.socialButtons}>
-        <TouchableOpacity style={styles.socialButton}>
-          <Text style={styles.socialButtonText}>Google</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.socialButton}>
-          <Text style={styles.socialButtonText}>Facebook</Text>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: "center", padding: 20, backgroundColor: "#fff" },
-  title: { fontSize: 28, color: "#000", marginBottom: 20, textAlign: "center" },
-  input: { borderWidth: 1, borderColor: "#ccc", padding: 12, borderRadius: 8, marginBottom: 16, color: "#000" },
-  button: { backgroundColor: "#000", padding: 14, borderRadius: 8, marginBottom: 10 },
-  buttonText: { color: "#fff", textAlign: "center", fontWeight: "bold" },
-  link: { color: "#666", textAlign: "center", marginTop: 10 },
-  divider: { height: 1, backgroundColor: "#ccc", marginVertical: 20 },
-  socialText: { color: "#000", textAlign: "center", marginBottom: 10 },
-  socialButtons: { flexDirection: "row", justifyContent: "space-around" },
-  socialButton: { borderWidth: 1, borderColor: "#000", padding: 10, borderRadius: 8, width: "40%" },
-  socialButtonText: { textAlign: "center", color: "#000" }
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    paddingHorizontal: 24,
+    justifyContent: "center",
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: "bold",
+    color: "#000",
+    marginBottom: 32,
+    textAlign: "center",
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    padding: 14,
+    borderRadius: 8,
+    marginBottom: 16,
+    fontSize: 16,
+    color: "#000",
+  },
+  button: {
+    backgroundColor: "#000",
+    padding: 16,
+    borderRadius: 8,
+    marginBottom: 12,
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 16,
+    textAlign: "center",
+  },
+  link: {
+    color: "#666",
+    fontSize: 14,
+    textAlign: "center",
+    marginTop: 10,
+  },
 });
