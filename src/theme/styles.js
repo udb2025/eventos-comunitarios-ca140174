@@ -77,7 +77,7 @@ socialButtonText: {
     elevation: 5,
   },
   floatingButton: {
-    backgroundColor: '#3b82f6',
+    backgroundColor: "#000",
     width: 60,
     height: 60,
     borderRadius: 30,

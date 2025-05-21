@@ -18,6 +18,8 @@ export default function BottomTabNavigator() {
         headerShown: false,
         tabBarStyle: styles.tabBar,
         tabBarShowLabel: false,
+        tabBarActiveTintColor: "#000",      
+        tabBarInactiveTintColor: "#999",   
       }}
     >
       <Tab.Screen
@@ -40,7 +42,7 @@ export default function BottomTabNavigator() {
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={styles.floatingButton}>
-              <Ionicons name="home" size={28} color="#fff" />
+              <Ionicons name="home" size={30} color="#fff" />
             </View>
           ),
         }}
