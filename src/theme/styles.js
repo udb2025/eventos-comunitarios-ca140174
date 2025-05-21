@@ -8,7 +8,7 @@ export default StyleSheet.create({
     paddingHorizontal: 24,
     //justifyContent: "center",
     padding: 20,
-    paddingTop: 40, 
+    paddingTop: 75, 
   },
   title: {
     fontSize: 28,

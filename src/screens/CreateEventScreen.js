@@ -1,4 +1,5 @@
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { Picker } from "@react-native-picker/picker";
 import dayjs from "dayjs";
 import { addDoc, collection } from "firebase/firestore";
 import React, { useState } from "react";
@@ -56,11 +57,27 @@ export default function CreateEventScreen() {
 
   return (
      <KeyboardAvoidingWrapper  style={styles.container}>
-    <View style={styles.container}>
+    <View >
       <Text style={styles.title}>Crear Nuevo Evento</Text>
 
       <TextInput style={styles.input} placeholder="Nombre del evento" value={nombre} onChangeText={setNombre} placeholderTextColor="#999" />
-      <TextInput style={styles.input} placeholder="Categoría" value={categoria} onChangeText={setCategoria} placeholderTextColor="#999" />
+       <View style={styles.input}>
+  <Picker
+    selectedValue={categoria}
+    onValueChange={(itemValue) => setCategoria(itemValue)}
+    style={{ color: categoria ? "#000" : "#999" }} // gris si no ha seleccionado
+    dropdownIconColor="#000"
+  >
+    <Picker.Item label="Selecciona una categoría" value="" enabled={false} />
+    <Picker.Item label="Viajes" value="viajes" />
+    <Picker.Item label="Música" value="musica" />
+    <Picker.Item label="Educación" value="educacion" />
+    <Picker.Item label="Deporte" value="deporte" />
+    <Picker.Item label="Cine" value="cine" />
+    <Picker.Item label="Fiesta" value="fiesta" />
+  </Picker>
+</View>
+
       <TextInput style={styles.input} placeholder="Ubicación" value={ubicacion} onChangeText={setUbicacion} placeholderTextColor="#999" />
 
       <TouchableOpacity onPress={() => setMostrarPicker(true)} style={styles.button}>
