@@ -1,8 +1,8 @@
 import dayjs from "dayjs";
 import React from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import EventCard from "../components/EventCard";
-
+import styles from '../theme/styles'; // importa el archivo
 const mockEvents = [
   {
     id: 1,
@@ -56,7 +56,8 @@ export default function MyEventsScreen() {
   const groupedEvents = groupEvents(mockEvents);
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView   style={{ flex: 1, backgroundColor: "#f5f5f5" }}
+  contentContainerStyle={styles.container}>
       {Object.entries(groupedEvents).map(([section, events]) =>
         events.length > 0 && (
           <View key={section} style={{ marginBottom: 24 }}>
@@ -71,16 +72,4 @@ export default function MyEventsScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-    paddingTop: 40, // 👈 agrega esto
-    backgroundColor: "#f5f5f5",
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#000",
-    marginBottom: 12,
-  },
-});
+
