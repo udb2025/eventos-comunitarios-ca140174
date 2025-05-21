@@ -15,6 +15,10 @@ export default StyleSheet.create({
     marginBottom: 32,
     textAlign: "center",
   },
+  sectionTitle: { fontSize: 18, fontWeight: "600", marginTop: 30, marginBottom: 10, color: "#000" },
+  label: { color: "#666", fontWeight: "600" },
+  value: { color: "#000", fontSize: 16 },
+  infoBox: { marginBottom: 20 },
   input: {
     borderWidth: 1,
     borderColor: "#ccc",
@@ -52,7 +56,9 @@ export default StyleSheet.create({
   marginBottom: 12,
   backgroundColor: "#fff",
 },
-
+logoutButton: {
+    backgroundColor: "#c00",
+},
 socialButtonText: {
   color: "#000",
   fontSize: 16,
