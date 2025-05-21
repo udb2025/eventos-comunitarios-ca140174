@@ -1,10 +1,10 @@
 import React from "react";
 import {
-    Keyboard,
-    KeyboardAvoidingView,
-    Platform,
-    TouchableWithoutFeedback,
-    View,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  TouchableWithoutFeedback,
 } from "react-native";
 
 export default function KeyboardAvoidingWrapper({ children, style }) {
@@ -14,11 +14,17 @@ export default function KeyboardAvoidingWrapper({ children, style }) {
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : undefined}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
     >
       <TouchableWithoutFeedback onPress={!isWeb ? Keyboard.dismiss : undefined}>
-        <View style={[{ flex: 1 }, style]}>
+        <ScrollView
+          style={{ flex: 1 }}
+          contentContainerStyle={[{ paddingBottom: 40 }, style]}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={true}
+        >
           {children}
-        </View>
+        </ScrollView>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );

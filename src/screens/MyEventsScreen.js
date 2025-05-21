@@ -1,63 +1,94 @@
 import dayjs from "dayjs";
-import React from "react";
-import { ScrollView, Text, View } from "react-native";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import { ActivityIndicator, Text, View } from "react-native";
 import EventCard from "../components/EventCard";
-import styles from '../theme/styles'; // importa el archivo
-const mockEvents = [
-  {
-    id: 1,
-    name: "Reunión de la comunidad",
-    location: "Parque Central",
-    date: dayjs().add(1, "day").toDate(), // mañana
-    rating: 4.5,
-    attendees: "Juan y 12 más asistirán",
-    category: "Comunitario"
-  },
-  {
-    id: 2,
-    name: "Taller de reciclaje",
-    location: "Centro cultural",
-    date: dayjs().add(2, "days").toDate(),
-    rating: 5,
-    attendees: "Ana y 7 más asistirán",
-    category: "Comunitario"
-  },
-  {
-    id: 3,
-    name: "Cine al aire libre",
-    location: "Plaza pública",
-    date: dayjs().subtract(2, "days").toDate(), // evento pasado
-    rating: 4,
-    attendees: "Carlos y 20 más asistieron",
-    category: "Comunitario"
-  },
-];
+import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
+import { auth, db } from "../services/firebaseConfig";
+import styles from "../theme/styles";
 
-function groupEvents(events) {
+export default function MyEventsScreen() {
+  const [eventos, setEventos] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const uid = auth.currentUser?.uid;
+
+  useEffect(() => {
+    const fetchEventos = async () => {
+      try {
+        const q = query(
+          collection(db, "eventos"),
+          where("asistentes", "array-contains", uid)
+        );
+       const snapshot = await getDocs(q);
+        const data = snapshot.docs.map(doc => {
+        const d = doc.data();
+        return {
+          id: doc.id,
+          name: d.nombre,
+          location: d.ubicacion,
+          date: d.fecha.toDate(),
+          rating: Number(d.calificacion),
+          category: d.categoria,
+          attendees: `${d.asistentes?.length || 0} personas asistirán`
+        };
+      });
+
+        setEventos(data);
+      } catch (error) {
+        console.error("Error al cargar eventos:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEventos();
+  }, []);
+
+  const groupEvents = (events) => {
   const today = dayjs();
   const tomorrow = today.add(1, "day");
+  const nextWeek = today.add(7, "days");
+
   const grouped = {
+    "Hoy": [],
     "Mañana": [],
     "Esta semana": [],
-    "Pasados": []
+    "Próximos": [],
+    "Pasados": [],
   };
-
   for (let event of events) {
     const d = dayjs(event.date);
-    if (d.isSame(tomorrow, 'day')) grouped["Mañana"].push(event);
-    else if (d.isAfter(today) && d.isBefore(today.add(7, "days"))) grouped["Esta semana"].push(event);
-    else if (d.isBefore(today)) grouped["Pasados"].push(event);
+
+    if (d.isSame(today, "day")) {
+      grouped["Hoy"].push(event);
+    } else if (d.isSame(tomorrow, "day")) {
+      grouped["Mañana"].push(event);
+    } else if (d.isAfter(today) && d.isBefore(nextWeek)) {
+      grouped["Esta semana"].push(event);
+    } else if (d.isAfter(nextWeek)) {
+      grouped["Próximos"].push(event);
+    } else if (d.isBefore(today)) {
+      grouped["Pasados"].push(event);
+    }
   }
 
   return grouped;
-}
+  };
 
-export default function MyEventsScreen() {
-  const groupedEvents = groupEvents(mockEvents);
+  const groupedEvents = groupEvents(eventos);
+
+  if (loading) {
+    return (
+      <View style={[styles.container, { justifyContent: "center", alignItems: "center" }]}>
+        <ActivityIndicator size="large" color="#000" />
+        <Text style={{ marginTop: 10, color: "#666" }}>Cargando eventos...</Text>
+      </View>
+    );
+  }
 
   return (
-    <ScrollView   style={{ flex: 1, backgroundColor: "#f5f5f5" }}
-  contentContainerStyle={styles.container}>
+<KeyboardAvoidingWrapper style={styles.container}>
       {Object.entries(groupedEvents).map(([section, events]) =>
         events.length > 0 && (
           <View key={section} style={{ marginBottom: 24 }}>
@@ -68,8 +99,6 @@ export default function MyEventsScreen() {
           </View>
         )
       )}
-    </ScrollView>
+ </KeyboardAvoidingWrapper>
   );
 }
-
-
