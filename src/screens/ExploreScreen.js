@@ -31,10 +31,10 @@ export default function ExploreScreen() {
       const ref = collection(db, "eventos");
       const q = query(ref, where("publico", "==", true), where("categoria", "==", categoria));
       const snapshot = await getDocs(q);
-       console.log("Total documentos encontrados:", snapshot.size);
-       snapshot.docs.forEach(doc => {
-        console.log("Doc:", doc.id, doc.data());
-      });
+      // console.log("Total documentos encontrados:", snapshot.size);
+      // snapshot.docs.forEach(doc => {
+      //  console.log("Doc:", doc.id, doc.data());
+      //});
       const data = snapshot.docs
         .map(doc => {
           const d = doc.data();
