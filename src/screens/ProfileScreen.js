@@ -34,6 +34,8 @@ export default function ProfileScreen({ navigation }) {
 
   return (
     <KeyboardAvoidingWrapper style={styles.container}>
+ 
+
       <Text style={styles.title}>Mi Perfil</Text>
 
       <View style={styles.infoBox}>
@@ -63,6 +65,9 @@ export default function ProfileScreen({ navigation }) {
 
       <TouchableOpacity style={[styles.button, styles.logoutButton]} onPress={handleLogout}>
         <Text style={styles.buttonText}>Cerrar sesión</Text>
+      </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("About")}>
+        <Text style={[styles.link, { marginTop: 20 }]}>📄 Acerca de la App</Text>
       </TouchableOpacity>
     </KeyboardAvoidingWrapper>
   );

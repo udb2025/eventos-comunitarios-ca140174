@@ -24,11 +24,33 @@ In the output, you'll find options to open the app in a
 - [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
 src/
-├── screens/            # Carpeta base para todas las pantallas de nuestra aplicacion
-│   ├── HomeScreen.js   # Screen principal del sistema
-│   ├── LoginScreen.js  # login de la aplicacion
-│   ├── ProfileScreen.js   # pantalla de perfil del usuario
-│   ├── RegisterScreen.js  # pantalla para registrarse en la app
-├── services/         # Archivo para la  services generales
-├── sttheme/          # Archivos de estilos globales
+├── screens/              # Pantallas principales de la aplicación
+│   ├── HomeScreen.js          # Vista inicial con novedades comunitarias
+│   ├── LoginScreen.js         # Inicio de sesión
+│   ├── RegisterScreen.js      # Registro de nuevos usuarios
+│   ├── ProfileScreen.js       # Perfil, cerrar sesión, acceso a Acerca de la app
+│   ├── MyEventsScreen.js      # Eventos confirmados por el usuario
+│   ├── CreateEventScreen.js   # Crear nuevos eventos
+│   ├── ExploreScreen.js       # Exploración de eventos públicos por categoría
+│   └── AboutScreen.js         # Información legal y versión
+│
+├── services/             # Configuración externa
+│   └── firebaseConfig.js     # Inicialización de Firebase
+│
+├── sttheme/              # Estilos globales
+│   └── styles.js             # Archivo de estilos centralizados
+│
+└── components/           # Componentes reutilizables
+    ├── EventCard.js          # Tarjeta visual de eventos
+    └── KeyboardAvoidingWrapper.js  # Wrapper para formularios y teclado
 
+Licencia
+   Todos los eventos publicados están licenciados bajo Creative Commons BY-NC 4.0.
+   Esto significa que se pueden compartir libremente con atribución, pero no con fines comerciales.
+ Autor
+
+   Moises Castillo
+   Estudiante de la Universidad Don Bosco
+   Carrera: Ingeniería en Ciencias de la Computación
+   Proyecto final de la asignatura DPS94
+   Carnet CA140174
